@@ -4,6 +4,7 @@ const query = require('querystring');
 
 const htmlHandler = require('./htmlResponses.js');
 const dataHandler = require('./dataResponses.js');
+const imageHandler = require('./imageResponses.js');
 
 const port = process.env.PORT || process.env.NODE_PORT || 3000;
 
@@ -11,7 +12,10 @@ const urlStruct = {
   '/': htmlHandler.getIndex,
   '/style.css': htmlHandler.getCSS,
 
+  '/html.jpg': imageHandler.getImage,
+
   '/getUsers': dataHandler.getUsers,
+
   '/addPost': dataHandler.addPost,
 
   notFound: dataHandler.notFound,

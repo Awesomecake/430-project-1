@@ -11,14 +11,17 @@ html, body {
   align-items: center;
   justify-content: center;
   margin: 0 auto;
+  padding: 0px 0px 10px 0px;
+  background-color: lightgreen;
+
+  box-shadow: 0px -5px 50px 0px;
 }
 
 #top h1 {
   font-size: 2em;
 }
 
-#content, #contentTitle {
-  margin-top: 100px;
+#content{
   font-size: 2em;
   text-align: center;
 }
@@ -27,6 +30,11 @@ html, body {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+}
+
+#contentTitle {
+  font-size: 2em;
+  text-align: center;
 }
 
 .post {
@@ -48,4 +56,22 @@ html, body {
   text-align: left;
   font-size: 15px;
   overflow-wrap: break-word;
+}
+
+.accountInfo{
+  display: flex;
+  align-items: start;
+  margin: 0px 0px 10px 0px;
+}
+
+.accountInfo img{
+  object-fit: cover;
+  width: 50px;
+  height: 50px;
+  border-radius: 10px;
+}
+
+.accountInfo p{
+  padding: 0px;
+  margin: 0px 10px;
 }

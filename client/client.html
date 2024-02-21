@@ -1,15 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <title>Project 1: Rich Web API</title>
   <link rel="stylesheet" type="text/css" href="style.css">
-  
+
   <script type="module">
     //Handles our FETCH response.
     const handleResponse = async (response, isHead) => {
       const content = document.querySelector('#content');
 
-      if(isHead) { return; }
+      if (isHead) { return; }
 
       if (response.status === 204) {
         content.innerHTML = '<p>No Content</p>';
@@ -19,8 +20,8 @@
       //sends back json. Await because .json() is an async function.
       let responseObject = await response.json();
       console.log(responseObject);
-      
-      if(response.status != 200) {
+
+      if (response.status != 200) {
         content.innerHTML = `<p>${responseObject.message}</p>`;
         return;
       }
@@ -28,11 +29,22 @@
       let output = '';
       for (const element of Object.values(responseObject.posts)) {
         for (const post of Object.values(element)) {
-          if(post.postTitle && post.postContent)
-            output += `<div class="post"><h3>${post.postTitle}</h3><p>${post.postContent}</p></div>`;
+          if (post.postTitle && post.postContent) {
+            //output += `<div class="post"><h3>${post.postTitle}</h3><p>${post.postContent}</p></div>`;
+            output += `<div class="post">
+                        <div class="accountInfo">
+                          <img src="html.jpg">
+                            <p>${element.name}</p>
+                        </div>
+                        <div>
+                          <h3>${post.postTitle}</h3>
+                          <p>${post.postContent}</p>
+                        </div>
+                      </div>`
+          }
         }
       }
-      
+
       content.innerHTML = output;
     };
 
@@ -42,7 +54,7 @@
       //Grab all the info from the form
       const nameAction = nameForm.getAttribute('action');
       const nameMethod = nameForm.getAttribute('method');
-      
+
       const nameField = nameForm.querySelector('#nameField');
       const postTitleField = nameForm.querySelector('#postTitle');
       const postContentsField = nameForm.querySelector('#postContents');
@@ -71,7 +83,7 @@
       const actionField = userForm.querySelector('#urlField');
       const methodField = userForm.querySelector('#methodSelect');
 
-      let response = await fetch (actionField.value, {
+      let response = await fetch(actionField.value, {
         method: methodField.value,
         headers: { 'Accept': 'application/json', },
       });
@@ -92,7 +104,7 @@
       }
       //Call addPost when the submit event fires on the form.
       nameForm.addEventListener('submit', addPost);
-      
+
       // Connect the userForm similarly to the nameForm
       const userForm = document.querySelector('#userForm');
       const getUser = (e) => {
@@ -107,17 +119,21 @@
     init();
   </script>
 </head>
+
 <body>
   <section id="top">
     <h1>Project 1: Rich Web API</h1>
     <form id="nameForm" action="/addPost" method="post">
       <label for="name">Account Name: </label>
       <input id="nameField" type="text" name="name" />
+
+      <br>
+      <br>
       <label for="postTitle">Post Title: </label>
       <input id="postTitle" type="text" name="postTitle" />
       <label for="postContents">Post Contents: </label>
       <input id="postContents" type="text" name="postContents" />
-      
+
       <input type="submit" value="Add User" />
     </form>
     <br>
@@ -135,18 +151,19 @@
   </section>
   <h2 id="contentTitle">Posts</h2>
   <section id="content">
-    <div class="post"><h3>0</h3><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum cum ab consequatur necessitatibus reiciendis quia, excepturi odit enim numquam eaque quam vero facilis harum dolor molestiae qui! Incidunt, ipsa voluptatibus.</p></div>
-    <div class="post"><h3>0</h3><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum cum ab consequatur necessitatibus reiciendis quia, excepturi odit enim numquam eaque quam vero facilis harum dolor molestiae qui! Incidunt, ipsa voluptatibus.</p></div>
-    <div class="post"><h3>0</h3><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum cum ab consequatur necessitatibus reiciendis quia, excepturi odit enim numquam eaque quam vero facilis harum dolor molestiae qui! Incidunt, ipsa voluptatibus.</p></div>
-    <div class="post"><h3>0</h3><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum cum ab consequatur necessitatibus reiciendis quia, excepturi odit enim numquam eaque quam vero facilis harum dolor molestiae qui! Incidunt, ipsa voluptatibus.</p></div>
-    <div class="post"><h3>0</h3><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum cum ab consequatur necessitatibus reiciendis quia, excepturi odit enim numquam eaque quam vero facilis harum dolor molestiae qui! Incidunt, ipsa voluptatibus.</p></div>
-    <div class="post"><h3>0</h3><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum cum ab consequatur necessitatibus reiciendis quia, excepturi odit enim numquam eaque quam vero facilis harum dolor molestiae qui! Incidunt, ipsa voluptatibus.</p></div>
-    <div class="post"><h3>0</h3><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum cum ab consequatur necessitatibus reiciendis quia, excepturi odit enim numquam eaque quam vero facilis harum dolor molestiae qui! Incidunt, ipsa voluptatibus.</p></div>
-    <div class="post"><h3>0</h3><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum cum ab consequatur necessitatibus reiciendis quia, excepturi odit enim numquam eaque quam vero facilis harum dolor molestiae qui! Incidunt, ipsa voluptatibus.</p></div>
-    <div class="post"><h3>0</h3><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum cum ab consequatur necessitatibus reiciendis quia, excepturi odit enim numquam eaque quam vero facilis harum dolor molestiae qui! Incidunt, ipsa voluptatibus.</p></div>
-    <div class="post"><h3>0</h3><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum cum ab consequatur necessitatibus reiciendis quia, excepturi odit enim numquam eaque quam vero facilis harum dolor molestiae qui! Incidunt, ipsa voluptatibus.</p></div>
-    <div class="post"><h3>0</h3><p>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAaLorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum cum ab consequatur necessitatibus reiciendis quia, excepturi odit enim numquam eaque quam vero facilis harum dolor molestiae qui! Incidunt, ipsa voluptatibus.</p></div>
-
+    <div class="post">
+      <div class="accountInfo">
+        <img src="html.jpg">
+        <p>Account Name</p>
+      </div>
+      <div>
+        <h3>Fortnite Backflip</h3>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum cum ab consequatur necessitatibus
+          reiciendis quia, excepturi odit enim numquam eaque quam vero facilis harum dolor molestiae qui! Incidunt, ipsa
+          voluptatibus.</p>
+      </div>
+    </div>
   </section>
 </body>
+
 </html>
