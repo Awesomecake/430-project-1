@@ -13,6 +13,7 @@ const urlStruct = {
   '/style.css': htmlHandler.getCSS,
 
   '/html.jpg': imageHandler.getImage,
+  '/dog.jpg': imageHandler.getImage,
 
   '/getUsers': dataHandler.getUsers,
 

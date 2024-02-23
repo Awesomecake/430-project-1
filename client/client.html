@@ -26,11 +26,16 @@
         return;
       }
 
+      if (responseObject.posts == null)
+      {
+        content.innerHTML = `<p>No posts have been made in this section</p>`;
+        return;
+      }
+
       let output = '';
       for (const element of Object.values(responseObject.posts)) {
         for (const post of Object.values(element)) {
           if (post.postTitle && post.postContent) {
-            //output += `<div class="post"><h3>${post.postTitle}</h3><p>${post.postContent}</p></div>`;
             output += `<div class="post">
                         <div class="accountInfo">
                           <img src="html.jpg">
@@ -58,9 +63,10 @@
       const nameField = nameForm.querySelector('#nameField');
       const postTitleField = nameForm.querySelector('#postTitle');
       const postContentsField = nameForm.querySelector('#postContents');
+      const sectionField = document.querySelector("#topicSelect")
 
       //Build a data string in the FORM-URLENCODED format.
-      const formData = `name=${nameField.value}&postTitle=${postTitleField.value}&postContent=${postContentsField.value}`;
+      const formData = `section=${sectionField.value}&name=${nameField.value}&postTitle=${postTitleField.value}&postContent=${postContentsField.value}`;
 
       //Make a fetch request and await a response. Set the method to
       //the one provided by the form (POST). Set the headers. Content-Type
@@ -80,15 +86,16 @@
     };
 
     const sendGetRequest = async (userForm) => {
-      const actionField = userForm.querySelector('#urlField');
-      const methodField = userForm.querySelector('#methodSelect');
+      const topicSelect = userForm.querySelector('#topicSelect');
 
-      let response = await fetch(actionField.value, {
-        method: methodField.value,
+      let response = await fetch(
+        `/getUsers?section=${topicSelect.value}`, 
+        {
+        method: "get",
         headers: { 'Accept': 'application/json', },
       });
 
-      handleResponse(response, methodField.value === 'head');
+      handleResponse(response, false);
     }
 
     //Init function is called when window.onload runs (set below).
@@ -138,13 +145,11 @@
     </form>
     <br>
     <form id="userForm" action="/getUsers" method="get">
-      <select id='urlField'>
-        <option value='/getUsers'>/getUsers</option>
-        <option value='/notReal'>/notReal</option>
-      </select>
-      <select id="methodSelect">
-        <option value="get">GET</option>
-        <option value="head">HEAD</option>
+      <select id='topicSelect'>
+        <option value='games'>Games</option>
+        <option value='movies'>Movies</option>
+        <option value='radio'>Radio</option>
+        <option value='dogs'>Dogs</option>
       </select>
       <input type="submit" value="Get User" />
     </form>
@@ -153,7 +158,7 @@
   <section id="content">
     <div class="post">
       <div class="accountInfo">
-        <img src="html.jpg">
+        <img src="dog.jpg">
         <p>Account Name</p>
       </div>
       <div>

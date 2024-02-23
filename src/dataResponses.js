@@ -27,23 +27,28 @@ const addPost = (request, response, params) => {
     return respondJSON(request, response, 400, responseJSON);
   }
 
+  if(!posts[params.section])
+  {
+    posts[params.section] = {};
+  }
+
   let responseCode = 201;
 
-  if (!posts[params.name]) {
-    posts[params.name] = {};
+  if (!posts[params.section][params.name]) {
+    posts[params.section][params.name] = {};
   } 
 
-  if (posts[params.name][params.postTitle]) {
+  if (posts[params.section][params.name][params.postTitle]) {
     responseCode = 204;
   }
   else 
   {
-    posts[params.name][params.postTitle] = {};
+    posts[params.section][params.name][params.postTitle] = {};
   }
 
-  posts[params.name].name = params.name;
-  posts[params.name][params.postTitle].postTitle = params.postTitle;
-  posts[params.name][params.postTitle].postContent = params.postContent;
+  posts[params.section][params.name].name = params.name;
+  posts[params.section][params.name][params.postTitle].postTitle = params.postTitle;
+  posts[params.section][params.name][params.postTitle].postContent = params.postContent;
 
   if (responseCode === 201) {
     responseJSON.message = 'Created Successfully';
@@ -54,9 +59,9 @@ const addPost = (request, response, params) => {
   return respondJSON(request, response, responseCode, responseJSON);
 };
 
-const getPosts = (request, response) => {
+const getPosts = (request, response,params) => {
   if (request.method === 'GET') {
-    const responseJSON = { posts: posts };
+    const responseJSON = { posts: posts[params.section] };
     return respondJSON(request, response, 200, responseJSON);
   }
   return respondJSONMeta(request, response, 200);
