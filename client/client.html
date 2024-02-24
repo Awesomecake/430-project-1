@@ -26,8 +26,7 @@
         return;
       }
 
-      if (responseObject.posts == null)
-      {
+      if (responseObject.posts == null) {
         content.innerHTML = `<p>No posts have been made in this section</p>`;
         return;
       }
@@ -60,7 +59,7 @@
       const nameAction = nameForm.getAttribute('action');
       const nameMethod = nameForm.getAttribute('method');
 
-      const nameField = nameForm.querySelector('#nameField');
+      const nameField = document.querySelector('#nameField');
       const postTitleField = nameForm.querySelector('#postTitle');
       const postContentsField = nameForm.querySelector('#postContents');
       const sectionField = document.querySelector("#topicSelect")
@@ -89,11 +88,11 @@
       const topicSelect = userForm.querySelector('#topicSelect');
 
       let response = await fetch(
-        `/getPosts?section=${topicSelect.value}`, 
+        `/getPosts?section=${topicSelect.value}`,
         {
-        method: "get",
-        headers: { 'Accept': 'application/json', },
-      });
+          method: "get",
+          headers: { 'Accept': 'application/json', },
+        });
 
       handleResponse(response, false);
     }
@@ -129,19 +128,23 @@
 
 <body>
   <section id="top">
+    <div id="accountHeader">
+      <label for="name">Account Name: </label>
+      <input id="nameField" type="text" name="name" value="John Reviews" />
+    </div>
     <h1>Project 1: Rich Web API</h1>
     <form id="nameForm" action="/addPost" method="post">
-      <label for="name">Account Name: </label>
-      <input id="nameField" type="text" name="name" />
+      <div id="nameInputs">
+        <div id="postContentsInput">
+          <label for="postTitle">Post Title: </label>
+          <input id="postTitle" type="text" name="postTitle" />
 
-      <br>
-      <br>
-      <label for="postTitle">Post Title: </label>
-      <input id="postTitle" type="text" name="postTitle" />
-      <label for="postContents">Post Contents: </label>
-      <input id="postContents" type="text" name="postContents" />
+          <label for="postContents">Post Contents: </label>
+          <textarea id="postContents" name="postContents" rows="4" cols="50"></textarea>
+        </div>
+      </div>
 
-      <input type="submit" value="Add User" />
+      <input type="submit" value="Submit Post" />
     </form>
     <br>
     <form id="userForm" action="/getPosts" method="get">

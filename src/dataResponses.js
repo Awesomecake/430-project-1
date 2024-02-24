@@ -18,7 +18,7 @@ const respondJSONMeta = (request, response, status) => {
 const addPost = (request, response, params) => {
   // default json message
   const responseJSON = {
-    message: 'Name and age are both required.',
+    message: 'Post Title and Content are both required.',
   };
 
   // check for name and age
@@ -27,8 +27,7 @@ const addPost = (request, response, params) => {
     return respondJSON(request, response, 400, responseJSON);
   }
 
-  if(!posts[params.section])
-  {
+  if (!posts[params.section]) {
     posts[params.section] = {};
   }
 
@@ -36,13 +35,11 @@ const addPost = (request, response, params) => {
 
   if (!posts[params.section][params.name]) {
     posts[params.section][params.name] = {};
-  } 
+  }
 
   if (posts[params.section][params.name][params.postTitle]) {
     responseCode = 204;
-  }
-  else 
-  {
+  } else {
     posts[params.section][params.name][params.postTitle] = {};
   }
 
@@ -59,7 +56,7 @@ const addPost = (request, response, params) => {
   return respondJSON(request, response, responseCode, responseJSON);
 };
 
-const getPosts = (request, response,params) => {
+const getPosts = (request, response, params) => {
   if (request.method === 'GET') {
     const responseJSON = { posts: posts[params.section] };
     return respondJSON(request, response, 200, responseJSON);

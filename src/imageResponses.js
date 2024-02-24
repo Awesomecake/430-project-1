@@ -5,7 +5,7 @@ const dogImage = fs.readFileSync(`${__dirname}/../client/dog.jpg`);
 
 const imageStruct = {
   '/html.jpg': htmlImage,
-  '/dog.jpg' : dogImage
+  '/dog.jpg': dogImage,
 };
 
 const getImage = (request, response) => {
