@@ -62,10 +62,10 @@
       const nameField = document.querySelector('#nameField');
       const postTitleField = nameForm.querySelector('#postTitle');
       const postContentsField = nameForm.querySelector('#postContents');
-      const sectionField = document.querySelector("#topicSelect")
+      const sectionField = document.querySelector('#sectionOptions img.sectionOptionSelected');
 
       //Build a data string in the FORM-URLENCODED format.
-      const formData = `section=${sectionField.value}&name=${nameField.value}&postTitle=${postTitleField.value}&postContent=${postContentsField.value}`;
+      const formData = `section=${sectionField.alt}&name=${nameField.value}&postTitle=${postTitleField.value}&postContent=${postContentsField.value}`;
 
       //Make a fetch request and await a response. Set the method to
       //the one provided by the form (POST). Set the headers. Content-Type
@@ -84,11 +84,11 @@
       handleResponse(response, false);
     };
 
-    const sendGetRequest = async (userForm) => {
-      const topicSelect = userForm.querySelector('#topicSelect');
+    const sendGetRequest = async () => {
+      const topicSelect = document.querySelector('#sectionOptions img.sectionOptionSelected');
 
       let response = await fetch(
-        `/getPosts?section=${topicSelect.value}`,
+        `/getPosts?section=${topicSelect.alt}`,
         {
           method: "get",
           headers: { 'Accept': 'application/json', },
@@ -124,6 +124,21 @@
 
     init();
   </script>
+
+  <script type="module">
+    let selectionImages = document.querySelectorAll('#sectionOptions img');
+    
+    selectionImages.forEach((image) => {
+      image.addEventListener('click', (e) => {
+        e.target.classList = 'sectionOptionSelected';
+        selectionImages.forEach((image) => {
+          if (image !== e.target) {
+            image.classList = '';
+          }
+        });
+      });
+    });
+  </script>  
 </head>
 
 <body>
@@ -133,28 +148,31 @@
       <input id="nameField" type="text" name="name" value="John Reviews" />
     </div>
     <h1>Project 1: Rich Web API</h1>
-    <form id="nameForm" action="/addPost" method="post">
-      <div id="nameInputs">
-        <div id="postContentsInput">
-          <label for="postTitle">Post Title: </label>
-          <input id="postTitle" type="text" name="postTitle" />
 
-          <label for="postContents">Post Contents: </label>
-          <textarea id="postContents" name="postContents" rows="4" cols="50"></textarea>
-        </div>
+    <div id="headerOptions">
+      <div id="sectionOptions">
+        <img src="EldenRing.jpg" alt="Elden Ring" class="sectionOptionSelected">
+        <img src="Helldivers2.jpg" alt="Helldivers 2">
+        <img src="Wildfrost.jpg" alt="Wildfrost">
+        <img src="BaldursGate3.jpg" alt="Baldurs Gate 3">
       </div>
+      <form id="nameForm" action="/addPost" method="post">
+        <div id="nameInputs">
+          <div id="postContentsInput">
+            <label for="postTitle">Post Title: </label>
+            <input id="postTitle" type="text" name="postTitle" />
 
-      <input type="submit" value="Submit Post" />
+            <label for="postContents">Post Contents: </label>
+            <textarea id="postContents" name="postContents" rows="4" cols="50"></textarea>
+          </div>
+        </div>
+    </div>
+
+    <input type="submit" value="Submit Post" />
     </form>
     <br>
     <form id="userForm" action="/getPosts" method="get">
-      <select id='topicSelect'>
-        <option value='games'>Games</option>
-        <option value='movies'>Movies</option>
-        <option value='radio'>Radio</option>
-        <option value='dogs'>Dogs</option>
-      </select>
-      <input type="submit" value="Get User" />
+      <input type="submit" value="Retrieve Posts" />
     </form>
   </section>
   <h2 id="contentTitle">Posts</h2>
