@@ -15,7 +15,7 @@ const urlStruct = {
   '/html.jpg': imageHandler.getImage,
   '/dog.jpg': imageHandler.getImage,
 
-  '/getUsers': dataHandler.getUsers,
+  '/getPosts': dataHandler.getPosts,
 
   '/addPost': dataHandler.addPost,
 

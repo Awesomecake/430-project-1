@@ -77,7 +77,7 @@ const notFound = (request, response) => {
 
 // set public modules
 module.exports = {
-  getUsers: getPosts,
+  getPosts,
   addPost,
   notFound,
 };

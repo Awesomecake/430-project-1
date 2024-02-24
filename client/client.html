@@ -42,7 +42,7 @@
                             <p>${element.name}</p>
                         </div>
                         <div>
-                          <h3>${post.postTitle}</h3>
+                          <h6>${post.postTitle}</h6>
                           <p>${post.postContent}</p>
                         </div>
                       </div>`
@@ -89,7 +89,7 @@
       const topicSelect = userForm.querySelector('#topicSelect');
 
       let response = await fetch(
-        `/getUsers?section=${topicSelect.value}`, 
+        `/getPosts?section=${topicSelect.value}`, 
         {
         method: "get",
         headers: { 'Accept': 'application/json', },
@@ -144,7 +144,7 @@
       <input type="submit" value="Add User" />
     </form>
     <br>
-    <form id="userForm" action="/getUsers" method="get">
+    <form id="userForm" action="/getPosts" method="get">
       <select id='topicSelect'>
         <option value='games'>Games</option>
         <option value='movies'>Movies</option>
@@ -162,7 +162,7 @@
         <p>Account Name</p>
       </div>
       <div>
-        <h3>Fortnite Backflip</h3>
+        <h6>Fortnite Backflip</h6>
         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum cum ab consequatur necessitatibus
           reiciendis quia, excepturi odit enim numquam eaque quam vero facilis harum dolor molestiae qui! Incidunt, ipsa
           voluptatibus.</p>
