@@ -1,44 +1,29 @@
-html, body {
-  height: 100%;
+.navbar{
+  position: relative;
+  padding: 5px 0px;
+}
+
+.navbar h1{
+  position: relative;
   width: 100%;
-  margin: 0;
-  padding: 0;
-}
-
-#accountHeader{
-  position: absolute;
-  top: 10px;
-  left: 10px;
-  display: flex;
-  width: 100%;
-  flex-direction: row;
-}
-
-#accountHeader img{
-  object-fit: cover;
-  width: 50px;
-  height: 50px;
-  border-radius: 10px;
-}
-
-#accountHeader label{
-  margin: 0px 5px;
+  text-align: center;
+  margin: auto;
+  margin-right: 342px;
 }
 
 #top {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  margin: 0 auto;
-  padding: 0px 0px 10px 0px;
-  background-color: lightgreen;
-
-  box-shadow: 0px -5px 50px 0px;
+  box-shadow: 0px -10px 50px 10px;
 }
 
-#top h1 {
-  font-size: 2em;
+#headerOptions{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin: 10px auto;
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 2px 0px;
 }
 
 #nameForm{
@@ -46,27 +31,13 @@ html, body {
   flex-direction: column;
   align-items: center;
   margin: 10px;
-}
-
-#nameInputs{
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  margin: 10px;
-}
-
-#nameInputs input, #nameInputs textarea{
-  margin: 0px 0px 10px 0px;
-  padding: 10px;
-  border-radius: 10px;
-  border: 1px solid black;
+  box-shadow: -31px 0px 0px -30px;
+  padding-left: 20px;
 }
 
 textarea{
   resize: none;
   min-height: 150px;
-  height: fit-content;
-  width: 100%;
 }
 
 #postContentsInput{
@@ -86,34 +57,12 @@ textarea{
   justify-content: center;
 }
 
-#contentTitle {
-  font-size: 2em;
-  text-align: center;
-}
-
-#headerOptions{
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  margin: 10px;
-  padding: 10px;
-  background-color: lightblue;
-  border-radius: 10px;
-  box-shadow: 0px 0px 2px 0px;
-
-}
-
 #sectionOptions{
   display: flex;
-  flex-direction: row;
-  align-items: center;
   flex-wrap: wrap;
   justify-content: center;
   margin: 10px;
   padding: 10px;
-  height: max-content;
-  box-shadow: 1px 0px 0px 0px;
 }
 .sectionOptionSelected{
   opacity: 1 !important;
@@ -124,8 +73,10 @@ textarea{
 
 #sectionOptions img{
   object-fit: cover;
-  width: 200px;
-  height: 200px;
+  max-width: 180px;
+  max-height: 180px;
+  width: 15vw;
+  height: 15vw;
   border-radius: 10px;
   margin: 10px 10px;
   opacity:0.65;
@@ -141,20 +92,17 @@ textarea{
 }
 
 .post {
-  background-color: lightblue;
-  border: 1px solid black;
   border-radius: 10px;
-  box-shadow: 0px 0px 10px 0px;
+  box-shadow: 0px 0px 3px 1px;
   width: 500px;
   margin: 10px 10px;
   padding: 15px 15px;
 }
 
-.post h6{
+.post h1{
   margin: 0px auto;
   width: 90%;
   box-shadow: 0px 1px 0px 0px #000000;
-
 }
 
 .post p {

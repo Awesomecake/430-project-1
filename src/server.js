@@ -14,7 +14,7 @@ const urlStruct = {
 
   '/html.jpg': imageHandler.getImage,
   '/dog.jpg': imageHandler.getImage,
-  '/BaldursGate3.jpg': imageHandler.getImage,
+  '/Yakuza0.jpg': imageHandler.getImage,
   '/EldenRing.jpg': imageHandler.getImage,
   '/Helldivers2.jpg': imageHandler.getImage,
   '/Wildfrost.jpg': imageHandler.getImage,

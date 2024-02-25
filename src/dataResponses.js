@@ -1,4 +1,15 @@
-const posts = {};
+// Default posts to keep Heroku Interesting
+const posts = {
+  'Elden Ring': {
+    'Elden ringer ': {
+      'Gosh Darn Elden Ring': {
+        postTitle: 'Gosh Darn Elden Ring',
+        postContent: 'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA',
+      },
+      name: 'Elden ringer ',
+    },
+  },
+};
 
 // function to respond with a json object
 // takes request, response, status code and object to send
@@ -18,12 +29,16 @@ const respondJSONMeta = (request, response, status) => {
 const addPost = (request, response, params) => {
   // default json message
   const responseJSON = {
-    message: 'Post Title and Content are both required.',
+    message: 'Error: Post Title and Content are both required.',
   };
 
-  // check for name and age
+  if (!params.section) {
+    responseJSON.id = 'missingSectionIdentifier';
+    return respondJSON(request, response, 400, responseJSON);
+  }
+
   if (!params.name || !params.postTitle || !params.postContent) {
-    responseJSON.id = 'addUserMissingParams';
+    responseJSON.id = 'addMissingPostParams';
     return respondJSON(request, response, 400, responseJSON);
   }
 
@@ -48,16 +63,23 @@ const addPost = (request, response, params) => {
   posts[params.section][params.name][params.postTitle].postContent = params.postContent;
 
   if (responseCode === 201) {
-    responseJSON.message = 'Created Successfully';
+    responseJSON.message = 'Post created successfully';
     return respondJSON(request, response, responseCode, responseJSON);
   }
 
-  responseJSON.message = 'Updated Successfully';
-  return respondJSON(request, response, responseCode, responseJSON);
+  return respondJSONMeta(request, response, responseCode);
 };
 
 const getPosts = (request, response, params) => {
   if (request.method === 'GET') {
+    if (!params.section) {
+      const responseJSON = { posts };
+      return respondJSON(request, response, 200, responseJSON);
+    }
+
+    if (!posts[params.section]) {
+      posts[params.section] = {};
+    }
     const responseJSON = { posts: posts[params.section] };
     return respondJSON(request, response, 200, responseJSON);
   }
