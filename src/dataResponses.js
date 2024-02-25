@@ -32,6 +32,7 @@ const addPost = (request, response, params) => {
     message: 'Error: Post Title and Content are both required.',
   };
 
+  //Check for missing parameters
   if (!params.section) {
     responseJSON.id = 'missingSectionIdentifier';
     return respondJSON(request, response, 400, responseJSON);
@@ -42,16 +43,19 @@ const addPost = (request, response, params) => {
     return respondJSON(request, response, 400, responseJSON);
   }
 
+  // add section if it doesnt exist
   if (!posts[params.section]) {
     posts[params.section] = {};
   }
 
   let responseCode = 201;
 
+  // add user name if it doesnt exist
   if (!posts[params.section][params.name]) {
     posts[params.section][params.name] = {};
   }
 
+  // add post if it doesnt exist or update it if it does
   if (posts[params.section][params.name][params.postTitle]) {
     responseCode = 204;
   } else {
@@ -70,6 +74,7 @@ const addPost = (request, response, params) => {
   return respondJSONMeta(request, response, responseCode);
 };
 
+// get posts, query by section
 const getPosts = (request, response, params) => {
   if (request.method === 'GET') {
     if (!params.section) {
