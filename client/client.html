@@ -37,13 +37,13 @@
       for (const element of Object.values(responseObject.posts)) {
         for (const post of Object.values(element)) {
           if (post.postTitle && post.postContent) {
-            output += `<div class="post has-background-warning">
+            output += `<div class="post has-background-warning p-4 m-2">
                         <div class="accountInfo">
                           <img src="html.jpg">
-                          <p>${element.name}</p>
+                          <p class="p-0 mx-3">${element.name}</p>
                         </div>
                         <div>
-                          <h1 class="title is-3 has-text-centered has-text-weight-normal">${post.postTitle}</h1>
+                          <h1 class="title is-3 has-text-centered has-text-weight-normal mx-auto">${post.postTitle}</h1>
                           <p>${post.postContent}</p>
                         </div>
                       </div>`
@@ -56,14 +56,14 @@
 
     //Uses fetch to send a postRequest. Marksed as async because we use await
     //within it.
-    const sendPost = async (nameForm) => {
+    const sendPost = async (createPostForm) => {
       //Grab all the info from the form
-      const nameAction = nameForm.getAttribute('action');
-      const nameMethod = nameForm.getAttribute('method');
+      const nameAction = createPostForm.getAttribute('action');
+      const nameMethod = createPostForm.getAttribute('method');
 
       const nameField = document.querySelector('#nameField');
-      const postTitleField = nameForm.querySelector('#postTitle');
-      const postContentsField = nameForm.querySelector('#postContents');
+      const postTitleField = createPostForm.querySelector('#postTitle');
+      const postContentsField = createPostForm.querySelector('#postContents');
       const sectionField = document.querySelector('#sectionOptions img.sectionOptionSelected');
 
       //Build a data string in the FORM-URLENCODED format.
@@ -102,16 +102,16 @@
     //Init function is called when window.onload runs (set below).
     const init = () => {
       //Grab the form
-      const nameForm = document.querySelector('#nameForm');
+      const createPostForm = document.querySelector('#createPostForm');
       //Create an addPost function that cancels the forms default action and
       //calls our sendPost function above.
       const addPost = (e) => {
         e.preventDefault();
-        sendPost(nameForm);
+        sendPost(createPostForm);
         return false;
       }
       //Call addPost when the submit event fires on the form.
-      nameForm.addEventListener('submit', addPost);
+      createPostForm.addEventListener('submit', addPost);
 
 
       let selectionImages = document.querySelectorAll('#sectionOptions img');
@@ -149,8 +149,8 @@
     </div>
     <h1 class="title is-3 has-text-light">Project 1: Rich Web API</h1>
   </nav>
-  <section class="hero has-background-primary is-widescreen p-1 has-shadow" id="top">
-    <div class="container has-background-info has-text-light" id="headerOptions">
+  <section id="top" class="hero has-background-primary is-widescreen p-1 has-shadow">
+    <div id="headerOptions" class="container has-background-info has-text-light p-2 my-2 mx-auto">
       <div>
         <h1 class="title is-4 has-text-centered m-0 has-text-light" id="topicHeader">Select Topic</h1>
         <div id="sectionOptions">
@@ -160,7 +160,7 @@
           <img src="Yakuza0.jpg" alt="Yakuza 0">
         </div>
       </div>
-      <form id="nameForm" action="/addPost" method="post">
+      <form id="createPostForm" action="/addPost" method="post" class="m-3 pl-5">
         <h1 class="title is-4 m-0  has-text-light">Create Post</h1>
         <div id="postContentsInput">
           <label class="label has-text-light" for="postTitle">Post Title: </label>
@@ -176,13 +176,13 @@
   </section>
   <h2 class="title has-text-centered is-2 m-3">Posts</h2>
   <section id="content">
-    <div class="post has-background-warning">
+    <div class="post has-background-warning p-4 m-2">
       <div class="accountInfo">
         <img src="html.jpg">
-        <p>${element.name}</p>
+        <p class="p-0 mx-3">${element.name}</p>
       </div>
       <div>
-        <h1 class="title is-3 has-text-centered has-text-weight-normal">${post.postTitle}</h1>
+        <h1 class="title is-3 has-text-centered has-text-weight-normal mx-auto">${post.postTitle}</h1>
         <p>${post.postContent}</p>
       </div>
     </div>

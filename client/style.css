@@ -20,19 +20,15 @@
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  margin: 10px auto;
-  padding: 10px;
   border-radius: 10px;
   box-shadow: 0px 0px 2px 0px;
 }
 
-#nameForm{
+#createPostForm{
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 10px;
   box-shadow: -31px 0px 0px -30px;
-  padding-left: 20px;
 }
 
 textarea{
@@ -44,11 +40,6 @@ textarea{
   margin: 10px;
   display: flex;
   flex-direction: column;
-}
-
-#content{
-  font-size: 2em;
-  text-align: center;
 }
 
 #content {
@@ -95,12 +86,9 @@ textarea{
   border-radius: 10px;
   box-shadow: 0px 0px 3px 1px;
   width: 500px;
-  margin: 10px 10px;
-  padding: 15px 15px;
 }
 
 .post h1{
-  margin: 0px auto;
   width: 90%;
   box-shadow: 0px 1px 0px 0px #000000;
 }
@@ -122,9 +110,4 @@ textarea{
   width: 50px;
   height: 50px;
   border-radius: 10px;
-}
-
-.accountInfo p{
-  padding: 0px;
-  margin: 0px 10px;
 }
