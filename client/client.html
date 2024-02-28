@@ -38,7 +38,7 @@
         for (const post of Object.values(element)) {
           if (post.postTitle && post.postContent) {
             output += `<div class="post has-background-warning p-4 m-2">
-                        <div class="accountInfo">
+                        <div class="accountInfo mb-2">
                           <img src="html.jpg">
                           <p class="p-0 mx-3">${element.name}</p>
                         </div>
@@ -153,7 +153,7 @@
     <div id="headerOptions" class="container has-background-info has-text-light p-2 my-2 mx-auto">
       <div>
         <h1 class="title is-4 has-text-centered m-0 has-text-light" id="topicHeader">Select Topic</h1>
-        <div id="sectionOptions">
+        <div id="sectionOptions" class="p-2">
           <img src="EldenRing.jpg" alt="Elden Ring" class="sectionOptionSelected">
           <img src="Helldivers2.jpg" alt="Helldivers 2">
           <img src="Wildfrost.jpg" alt="Wildfrost">
@@ -177,7 +177,7 @@
   <h2 class="title has-text-centered is-2 m-3">Posts</h2>
   <section id="content">
     <div class="post has-background-warning p-4 m-2">
-      <div class="accountInfo">
+      <div class="accountInfo mb-2">
         <img src="html.jpg">
         <p class="p-0 mx-3">${element.name}</p>
       </div>
