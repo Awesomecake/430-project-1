@@ -8,7 +8,7 @@
 
   <script type="module">
     //Handles our FETCH response.
-    const handleResponse = async (response, isHead) => {
+    const handleResponse = async (response, isHead, section) => {
       const postOutputParagraph = document.querySelector('#postOutputParagraph');
       if (isHead) { return; }
 
@@ -44,14 +44,29 @@
                         </div>
                         <div>
                           <h1 class="title is-3 has-text-centered has-text-weight-normal mx-auto">${post.postTitle}</h1>
-                          <p>${post.postContent}</p>
-                        </div>
+                          <p> ${post.postContent}</p>`
+
+            if(element.name.trim() == document.querySelector('#nameField').value)
+              output+=`<p  class="deletePost" ><a>Delete Post</a></p>`
+            
+            output +=  `</div>
                       </div>`
           }
         }
       }
 
+
       content.innerHTML = output;
+
+      document.querySelectorAll(".post").forEach(element => {
+        let name = element.querySelector(".accountInfo p").innerHTML;
+        let postName = element.querySelector("div h1").innerHTML;
+
+        let anchor = element.querySelector("a");
+
+        if(anchor)
+          anchor.addEventListener("click",() => {sendDeleteRequest(section, name, postName)})});
+
     };
 
     //Uses fetch to send a postRequest. Marksed as async because we use await
@@ -83,20 +98,34 @@
       });
 
       //Once we have a response, handle it.
-      handleResponse(response, false);
+      handleResponse(response, false, sectionField.alt);
     };
 
     const sendGetRequest = async () => {
-      const topicSelect = document.querySelector('#sectionOptions img.sectionOptionSelected');
+      const sectionField = document.querySelector('#sectionOptions img.sectionOptionSelected');
 
       let response = await fetch(
-        `/getPosts?section=${topicSelect.alt}`,
+        `/getPosts?section=${sectionField.alt}`,
         {
           method: "get",
           headers: { 'Accept': 'application/json', },
         });
 
-      handleResponse(response, false);
+      handleResponse(response, false, sectionField.alt);
+    }
+
+    const sendDeleteRequest = async (sectionName, userName, postName) => {
+      const formData = `section=${sectionName}&name=${userName}&postTitle=${postName}`;
+
+      let response = await fetch(
+        `/deletePost?`,
+        {
+          method: "delete",
+          headers: { 'Accept': 'application/json', },
+          body: formData,
+        });
+
+      handleResponse(response, false, sectionName);
     }
 
     //Init function is called when window.onload runs (set below).
@@ -184,6 +213,7 @@
       <div>
         <h1 class="title is-3 has-text-centered has-text-weight-normal mx-auto">${post.postTitle}</h1>
         <p>${post.postContent}</p>
+        <p class="deletePost"><a>Delete Post</a></p>
       </div>
     </div>
   </section>

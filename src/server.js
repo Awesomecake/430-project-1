@@ -21,6 +21,8 @@ const urlStruct = {
 
   '/getPosts': dataHandler.getPosts,
 
+  '/deletePost': dataHandler.deletePost,
+
   '/addPost': dataHandler.addPost,
 
   notFound: dataHandler.notFound,
@@ -72,7 +74,7 @@ const onRequest = (request, response) => {
 
   // check to see if we have something to handle the request.
   if (urlStruct[parsedUrl.pathname]) {
-    if (request.method === 'POST') {
+    if (request.method === 'POST' || request.method === 'DELETE') {
       return parseBody(request, response, urlStruct[parsedUrl.pathname]);
     }
 

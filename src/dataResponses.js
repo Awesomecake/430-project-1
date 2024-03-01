@@ -1,7 +1,7 @@
 // Default posts to keep Heroku Interesting
 const posts = {
   'Elden Ring': {
-    'Elden ringer ': {
+    'Elden ringer': {
       'Gosh Darn Elden Ring': {
         postTitle: 'Gosh Darn Elden Ring',
         postContent: 'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA',
@@ -25,6 +25,10 @@ const respondJSONMeta = (request, response, status) => {
   response.writeHead(status, { 'Content-Type': 'application/json' });
   response.end();
 };
+
+const deletePost = (request, response, params) => {
+  console.log(params);
+}
 
 const addPost = (request, response, params) => {
   // default json message
@@ -102,6 +106,7 @@ const notFound = (request, response) => {
 // set public modules
 module.exports = {
   getPosts,
+  deletePost,
   addPost,
   notFound,
 };
