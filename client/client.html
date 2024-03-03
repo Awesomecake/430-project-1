@@ -12,8 +12,10 @@
       const postOutputParagraph = document.querySelector('#postOutputParagraph');
       if (isHead) { return; }
 
+      //If there is no body in the response, we can't parse it as json.
       if (response.status === 204) {
         postOutputParagraph.innerHTML = 'Post update successful';
+        sendGetRequest();
         return;
       }
       //Parse the response to json. This works because we know the server always
@@ -23,6 +25,7 @@
 
       if (response.status != 200) {
         postOutputParagraph.innerHTML = `${responseObject.message}`;
+        sendGetRequest();
         return;
       }
 

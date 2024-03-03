@@ -26,17 +26,39 @@ const respondJSONMeta = (request, response, status) => {
   response.end();
 };
 
+// function to delete a post
+// takes request, response, and parameters
 const deletePost = (request, response, params) => {
-  console.log(params);
-}
+  if (!params.section || !params.name || !params.postTitle) {
+    const responseJSON = {
+      message: 'Error: Account Name and Post Data are both required.',
+      id: 'deleteMissingPostParams',
+    };
+    return respondJSON(request, response, 400, responseJSON);
+  }
 
+  if (posts[params.section] && posts[params.section][params.name]
+    && posts[params.section][params.name][params.postTitle]) {
+    delete posts[params.section][params.name][params.postTitle];
+    return respondJSONMeta(request, response, 204);
+  }
+
+  const responseJSON = {
+    message: 'Error: Post not found.',
+    id: 'deleteCannotFindPost',
+  };
+  return respondJSON(request, response, 400, responseJSON);
+};
+
+// function to add a post
+// takes request, response, and parameters
 const addPost = (request, response, params) => {
   // default json message
   const responseJSON = {
     message: 'Error: Post Title and Content are both required.',
   };
 
-  //Check for missing parameters
+  // Check for missing parameters
   if (!params.section) {
     responseJSON.id = 'missingSectionIdentifier';
     return respondJSON(request, response, 400, responseJSON);
@@ -78,7 +100,7 @@ const addPost = (request, response, params) => {
   return respondJSONMeta(request, response, responseCode);
 };
 
-// get posts, query by section
+// function to get posts, query by section
 const getPosts = (request, response, params) => {
   if (request.method === 'GET') {
     if (!params.section) {

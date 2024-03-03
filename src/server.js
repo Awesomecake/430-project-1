@@ -28,6 +28,7 @@ const urlStruct = {
   notFound: dataHandler.notFound,
 };
 
+// function to parse body of request
 const parseBody = (request, response, handler) => {
   // The request will come in in pieces. We will store those pieces in this
   // body array.
@@ -78,6 +79,7 @@ const onRequest = (request, response) => {
       return parseBody(request, response, urlStruct[parsedUrl.pathname]);
     }
 
+    //Supports GET and HEAD requests
     return urlStruct[parsedUrl.pathname](request, response, params);
   }
 
